@@ -16,7 +16,7 @@ public class Team {
     @Column(name="team_name")
     private String name;
 
-    @OneToMany(mappedBy = "team")//Member class 에서 ==> private Team team; 과 관련이 있음.
+    @OneToMany(mappedBy = "team")//Member class 에서 ==> private Team team; 과 관련이 있음.//(사실상 ReadOnly)
     private List<Member> members = new ArrayList<>();
 
     public Long getTeamId() {
@@ -42,4 +42,10 @@ public class Team {
     public void setMembers(List<Member> members) {
         this.members = members;
     }
+    // OBJ setting 은 한쪽에서 하자. 상황봐가면서
+//    public void addMember(Member member)
+//    {
+//        member.setTeam(this);
+//        members.add(member);
+//    }
 }

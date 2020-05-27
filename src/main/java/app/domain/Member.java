@@ -44,6 +44,13 @@ public class Member {
         this.team = team;
     }
 
+    public void changeTeam(Team team)
+    {
+        this.team = team;
+        team.getMembers().add(this);// 나 자신을 여기에 넣어주고 바깥 라인, 아래 라인을 이 메소드로 대체한다라고 생각하자.
+        //team.getMembers().add(member);
+    }
+
     @Override
     public String toString() {
         return "Member{" +
