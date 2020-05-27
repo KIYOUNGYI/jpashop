@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class Main
 {
@@ -26,18 +27,20 @@ public class Main
             entityManager.persist(team);
 
             Member member = new Member();
-            member.setUserName("hello2");
+            member.setUserName("hello4");
             member.setTeam(team);
             entityManager.persist(member);
 
             entityManager.flush();
             entityManager.clear();
 
-
             Member findMember = entityManager.find(Member.class,member.getId());
-            Team findTeam = findMember.getTeam();
-            System.out.println("findTeam = "+findTeam.getName());
-            entityTransaction.commit();
+            List<Member> members = findMember.getTeam().getMembers();
+            for(Member m:members)
+            {
+                System.out.println("m="+m.toString());
+            }
+
         }
         catch (Exception e)
         {

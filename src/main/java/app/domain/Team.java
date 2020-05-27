@@ -2,6 +2,8 @@ package app.domain;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Team {
@@ -14,19 +16,30 @@ public class Team {
     @Column(name="team_name")
     private String name;
 
-    public Long getId() {
+    @OneToMany(mappedBy = "team")//Member class 에서 ==> private Team team; 과 관련이 있음.
+    private List<Member> members = new ArrayList<>();
+
+    public Long getTeamId() {
         return teamId;
+    }
+
+    public void setTeamId(Long teamId) {
+        this.teamId = teamId;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setId(Long teamId) {
-        this.teamId = teamId;
-    }
-
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Member> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<Member> members) {
+        this.members = members;
     }
 }
