@@ -1,62 +1,46 @@
 package app.domain;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 // member <---> team n:1
 @Entity
 public class Member {
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="MEMBER_ID")
     private Long id;
-    private String name;
-    private String city;
-    private String street;
-    private String zipcode;
 
-    public Member() {
-    }
+    @Column(name="USERNAME")
+    private String userName;
 
-    public Member( String name, String city, String street, String zipcode) {
 
-        this.name = name;
-        this.city = city;
-        this.street = street;
-        this.zipcode = zipcode;
-    }
+    @ManyToOne
+    @JoinColumn(name="TEAM_ID")
+    private Team team;
 
     public Long getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public String getCity() {
-        return city;
+    public Team getTeam() {
+        return team;
     }
 
-    public String getStreet() {
-        return street;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getZipcode() {
-        return zipcode;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    @Override
-    public String toString() {
-        return "Member{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", city='" + city + '\'' +
-                ", street='" + street + '\'' +
-                ", zipcode='" + zipcode + '\'' +
-                '}';
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }

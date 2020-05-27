@@ -1,5 +1,8 @@
 package app;
 
+import app.domain.Member;
+import app.domain.Team;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -18,15 +21,32 @@ public class Main
 
         try
         {
+            Team team = new Team();
+            team.setName("team b");
+            entityManager.persist(team);
 
+            Member member = new Member();
+            member.setUserName("hello2");
+            member.setTeam(team);
+            entityManager.persist(member);
+
+            entityManager.flush();
+            entityManager.clear();
+
+
+            Member findMember = entityManager.find(Member.class,member.getId());
+            Team findTeam = findMember.getTeam();
+            System.out.println("findTeam = "+findTeam.getName());
+            entityTransaction.commit();
         }
         catch (Exception e)
         {
+            System.out.println("===>"+e);
             entityTransaction.rollback();
         }
         finally
         {
-
+            entityManager.close();
         }
 
         entityManagerFactory.close();
