@@ -13,6 +13,9 @@
         <class>app.domain.Product</class>
         <class>app.domain.Category</class>
         <class>app.domain.Delivery</class>
+        <class>app.domain.Album</class>
+        <class>app.domain.Book</class>
+        <class>app.domain.Movie</class>
         <properties>
             <!-- 필수 속성 -->
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>

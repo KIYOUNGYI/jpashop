@@ -7,7 +7,7 @@ import java.util.List;
 
 // member <---> team n:1
 @Entity
-public class Member {
+public class Member extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
