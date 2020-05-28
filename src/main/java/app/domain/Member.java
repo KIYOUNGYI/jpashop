@@ -2,6 +2,8 @@ package app.domain;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 // member <---> team n:1
 @Entity
@@ -15,10 +17,15 @@ public class Member {
     @Column(name="USERNAME")
     private String userName;
 
-
+    // 외래키의 주인은 나야 나 ~~~
     @ManyToOne
     @JoinColumn(name="TEAM_ID")
     private Team team;
+
+//    별로 맘에 안드는 참조(이걸 굳이 양방향으로?)
+//    @OneToMany(mappedBy = "member")
+//    private List<Orders> orders = new ArrayList<>();
+
 
     public Long getId() {
         return id;
