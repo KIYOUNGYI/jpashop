@@ -26,6 +26,12 @@ public class Member {
 //    @OneToMany(mappedBy = "member")
 //    private List<Orders> orders = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member")
+    private List<MemberProduct> memberProducts = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name="LOCKER_ID")
+    private Locker locker;
 
     public Long getId() {
         return id;

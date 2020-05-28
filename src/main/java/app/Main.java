@@ -32,8 +32,8 @@ public class Main
         try
         {
 
-            Orders order = new Orders();
-            order.addOrderItem(new OrderItem());
+//            Orders order = new Orders();
+//            order.addOrderItem(new OrderItem());
 
             // 순수 객체 상태를 고려해서 양쪽에 데이터를 넣어주자.
 //            Team team = new Team();
