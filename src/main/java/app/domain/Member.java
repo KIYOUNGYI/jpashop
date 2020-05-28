@@ -1,62 +1,69 @@
 package app.domain;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 // member <---> team n:1
 @Entity
 public class Member {
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="MEMBER_ID")
     private Long id;
-    private String name;
-    private String city;
-    private String street;
-    private String zipcode;
 
-    public Member() {
-    }
+    @Column(name="USERNAME")
+    private String userName;
 
-    public Member( String name, String city, String street, String zipcode) {
+    // 외래키의 주인은 나야 나 ~~~
+    @ManyToOne
+    @JoinColumn(name="TEAM_ID")
+    private Team team;
 
-        this.name = name;
-        this.city = city;
-        this.street = street;
-        this.zipcode = zipcode;
-    }
+//    별로 맘에 안드는 참조(이걸 굳이 양방향으로?)
+//    @OneToMany(mappedBy = "member")
+//    private List<Orders> orders = new ArrayList<>();
+
 
     public Long getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public String getCity() {
-        return city;
+    public Team getTeam() {
+        return team;
     }
 
-    public String getStreet() {
-        return street;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getZipcode() {
-        return zipcode;
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    public void changeTeam(Team team)
+    {
+        this.team = team;
+        team.getMembers().add(this);// 나 자신을 여기에 넣어주고 바깥 라인, 아래 라인을 이 메소드로 대체한다라고 생각하자.
+        //team.getMembers().add(member);
     }
 
     @Override
     public String toString() {
         return "Member{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", city='" + city + '\'' +
-                ", street='" + street + '\'' +
-                ", zipcode='" + zipcode + '\'' +
+                ", userName='" + userName + '\'' +
+                ", team=" + team +
                 '}';
     }
 }

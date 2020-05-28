@@ -2,6 +2,8 @@ package app.domain;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Orders
@@ -10,45 +12,65 @@ public class Orders
     @Column(name="ORDER_ID")
     private Long id;
 
-    private Long memberId;
+//    @Column(name="MEMBER_ID")
+//    private Long memberId;
+
+    // 외래키의 주인은 나야 나 ~~~
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
+
     private LocalDateTime orderDate;
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus orderStatus;
+    private OrderStatus status;
 
-    public Orders() {
-    }
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems = new ArrayList<>();
 
-    public Orders(Long memberId, LocalDateTime orderDate, OrderStatus orderStatus)
+    public void addOrderItem(OrderItem orderItem)
     {
-        this.memberId = memberId;
-        this.orderDate = orderDate;
-        this.orderStatus = orderStatus;
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
     }
 
     public Long getId() {
         return id;
     }
 
-    public Long getMemberId() {
-        return memberId;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
     }
 
     public LocalDateTime getOrderDate() {
         return orderDate;
     }
 
-    public OrderStatus getOrderStatus() {
-        return orderStatus;
+    public void setOrderDate(LocalDateTime orderDate) {
+        this.orderDate = orderDate;
     }
 
-    @Override
-    public String toString() {
-        return "Orders{" +
-                "id=" + id +
-                ", memberId=" + memberId +
-                ", orderDate=" + orderDate +
-                ", orderStatus=" + orderStatus +
-                '}';
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 }
