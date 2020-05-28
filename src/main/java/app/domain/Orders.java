@@ -20,6 +20,10 @@ public class Orders
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
+    @OneToOne
+    @JoinColumn(name="DELIVERY_ID")
+    private Delivery delivery;//1:1
+
     private LocalDateTime orderDate;
 
     @Enumerated(EnumType.STRING)
