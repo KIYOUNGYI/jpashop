@@ -1,9 +1,6 @@
 package app;
 
-import app.domain.Member;
-import app.domain.OrderItem;
-import app.domain.Orders;
-import app.domain.Team;
+import app.domain.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -32,6 +29,10 @@ public class Main
         try
         {
 
+            Book book = new Book();
+            book.setTitle("jpa2");
+            book.setAuthor("김영한2");
+            entityManager.persist(book);
 //            Orders order = new Orders();
 //            order.addOrderItem(new OrderItem());
 
